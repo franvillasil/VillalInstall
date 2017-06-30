@@ -5,8 +5,11 @@ echo "##  Script de post-instalacion de programas para Arch y derivados  ##"
 
 echo "##  Realizado por Francisco Villalta  ##"
 
-PATCH=$(dirname $0)
-USUARIO="fran"
+#  PATH=$(dirname $0)
+
+#  BASE_DIR=$(cd $(dir $0) && pwd)
+
+#  USUARIO="fran"
 
 
 # FUNCIONES
@@ -14,7 +17,7 @@ funcion_desinstalar() {
 	sudo pacman -Rn --noconfirm $1 
 	if [ $? = "0" ]
 	then
-		return 0
+		return 0 #cambiar por exit
 	else
 		echo "Error: No se ha podido desinstalar <$1>" >> log.txt
 		return 1
@@ -69,14 +72,25 @@ funcion_config_jdk() {
     sudo archlinux-java set java-8-jdk
 }
 
+funcion_config_mysql() {
+    funcion_instalar_AUR xampp
+    funcion_instalar_AUR mysql-workbench
+    funcion_instalar_AUR mariadb
+    
+    sudo chmod -R 777 /opt/lampp
+}
 
 
+#
 #  Actualizar SO
 sudo pacman -Syu
 
 
 #  Utilidades
 funcion_instalar plank
+funcion_instalar_AUR plank-theme-arc
+funcion_instalar screenfetch
+funcion_instalar_AUR etcher
 
 # Java
 funcion_config_jdk
@@ -84,11 +98,12 @@ funcion_config_jdk
 
 #  Desarrollo
 funcion_instalar netbeans
-funcion_instalar intellij-idea-community-edition
+funcion_instalar intellij-idea-ultimate-edition
 funcion_instalar_AUR sublime-text-dev
 funcion_instalar_AUR brackets
 funcion_instalar_AUR android-studio
-
+funcion_instalar datagrip
+funcion_config_mysql
 
 #  Internet
 funcion_instalar_AUR google-chrome
@@ -98,19 +113,16 @@ funcion_instalar_AUR playonlinux
 funcion_instalar_AUR wine
 
 #  DE's y WM's
-funcion_instalar_AUR virtualbox-ext-oracle
+sudo pacman -S --noconfirm virtualbox virtualbox-host-dkms virtualbox-guest-iso linux-headers dkms net-tools
 
 #  Multimedia
 funcion_instalar vlc
 funcion_instalar_Spotify
 
-
-#  Productividad
-funcion_desinstalar libreoffice
-funcion_instalar_AUR wps-office
-
-
-#  Personalizacion
+#  Redes sociales
+funcion_instalar_AUR telegram-desktop-bin
+funcion_instalar_AUR whatsie
+funcion_instalar_AUR discord
 
 
 
