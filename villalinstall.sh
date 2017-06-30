@@ -5,12 +5,6 @@ echo "##  Script de post-instalacion de programas para Arch y derivados  ##"
 
 echo "##  Realizado por Francisco Villalta  ##"
 
-#  PATH=$(dirname $0)
-
-#  BASE_DIR=$(cd $(dir $0) && pwd)
-
-#  USUARIO="fran"
-
 
 # FUNCIONES
 funcion_desinstalar() {
